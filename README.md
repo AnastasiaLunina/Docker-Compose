@@ -1,7 +1,23 @@
-   <h2>Commands:</h2>
-   <hr>
-   cd stocks_products <br>
-   docker build . --tag=crud <br>
-   docker ps <br>
-   docker run -d -e MY_ENV=top_env  -p 8081:8000 crud <br>
-   docker ps <br>
+# Домашнее задание к лекции «Docker Compose»
+
+Инструкцию по сдаче домашнего задания вы найдете на главной странице репозитория. 
+
+## Задание* (необязательное)
+
+Cделать конфигурацию docker-compose любого Вашего проекта из курса по Django, который использует БД (например, [CRUD: Склады и запасы](https://github.com/netology-code/dj-homeworks/tree/drf/3.2-crud/stocks_products)).
+
+Результатом является `docker-compose.yml` файл с описанием конфигурации для развертывания приложения (и не забудьте про `Dockerfile`).
+
+P.S. для создания конфигурации необходим образ своего проекта, а значит предварительно необходимо описать `Dockerfile`, сделать образ и потом уже писать `docker-compose.yml` (это типичный сценарий при работе с Docker и Docker Compose).
+
+Созданные файлы отправьте в личном кабинете на сайте [netology.ru](https://netology.ru)
+
+### Подсказка:
+
+Конфигурация должна состоять из 3-х контейнеров: backend, postgres, nginx. 
+
+Контейнеры объединяются в сеть, которые работают в связке:
+
+- Nginx работает в качестве proxy-http для пересылки динамических запросов к Django или возвращая статические html файлы.
+- PostgreSQL запускается до Django.
+- Django запускается через Gunicorn.
