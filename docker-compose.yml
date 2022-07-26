@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  web:
+    build: ./stocks_products
+    command: gunicorn stocks_products.wsgi:application --bind 0.0.0.0:8000
+    ports:
+      - '8000:8000'
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+  db:
+    image: postgres:latest
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./logs:/var/log
+    env_file:
+      - ./.env.db
+  nginx:
+    build: nginx
+    ports:
+      - '5432:80'
+    depends_on:
+      - web
+volumes:
+  pgdata:
